@@ -10,6 +10,7 @@ export const rename = async () => {
   const oldPath = path.join(__dirname, 'files', 'wrongFilename.txt' );
   const newPath = path.join(__dirname, 'files', 'properFilename.md');
   let isFileExist;
+  
   try{
     await fs.access(newPath); 
     isFileExist=true;
@@ -24,7 +25,7 @@ export const rename = async () => {
   try{
     await fs.rename(oldPath, newPath); 
   } catch(err){
-      throw new Error('FS operation failed');
+    throw new Error('FS operation failed');
   }
 };
 
