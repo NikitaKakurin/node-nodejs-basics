@@ -1,4 +1,3 @@
-import { mkdir } from 'fs';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -10,8 +9,8 @@ export const copy = async () => {
     const targetFolderPath = path.join(__dirname, 'files_copy');
 
     try{
+      await fs.access(sourceFolderPath); 
       await fs.mkdir(targetFolderPath);
-      await fs.access(sourceFolderPath);     
     } catch(err){
         throw new Error('FS operation failed');
     }
