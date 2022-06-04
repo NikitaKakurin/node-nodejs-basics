@@ -1,5 +1,4 @@
 import fs from 'fs';
-import { pipeline } from 'stream';
 import crypto from 'crypto';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -10,12 +9,10 @@ export const calculateHash = async () => {
   const pathToFile = path.join(__dirname, 'files', 'fileToCalculateHashFor.txt');
   const readableStream = fs.createReadStream(pathToFile, 'utf-8');
   let data = '';
-  readableStream.on('data', (chunk) =>{
-    data += chunk.toString();
-  })
-  readableStream.on('end', () =>{
-    const hash = crypto.createHash('sha256').update(data).digest('hex');
-    console.log(hash)
-  })
+  for await( let chunk of readableStream){
+     data += chunk;
+  }
+  const hash = crypto.createHash('sha256').update(data).digest('hex');
+  return hash;
 };
-calculateHash()
+calculateHash().then(res => console.log(res));
