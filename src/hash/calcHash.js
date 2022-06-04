@@ -13,7 +13,7 @@ export const calculateHash = async () => {
   readableStream.on('data', (chunk) =>{
     data += chunk.toString();
   })
-  readableStream.on('end', (chunk) =>{
+  readableStream.on('end', () =>{
     const hash = crypto.createHash('sha256').update(data).digest('hex');
     console.log(hash)
   })
