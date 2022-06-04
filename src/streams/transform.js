@@ -2,7 +2,6 @@ import fs from 'fs';
 import { Transform, pipeline } from 'stream';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { reverse } from 'dns';
 
 export const transform = async () => {
   const __filename = fileURLToPath(import.meta.url);
@@ -16,7 +15,7 @@ export const transform = async () => {
       cb()
     }
   })
-  
+
   pipeline(
     process.stdin,
     reversTransform,
